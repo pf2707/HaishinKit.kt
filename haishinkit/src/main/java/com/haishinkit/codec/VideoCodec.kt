@@ -6,6 +6,7 @@ import android.media.MediaCodec
 import android.media.MediaFormat
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.util.Size
 import com.haishinkit.graphics.PixelTransform
 import com.haishinkit.graphics.PixelTransformFactory
@@ -20,6 +21,8 @@ class VideoCodec : Codec(MIME) {
          * Specifies the width resolution for a video output.
          */
         var width: Int by Delegates.observable(DEFAULT_WIDTH) { _, oldValue, newValue ->
+            Log.d(TAG, "VideoCodec: set new setting - width oldValue = $oldValue - newValue = $newValue")
+
             if (oldValue != newValue) {
                 codec?.width = if (newValue % 2 == 0) newValue else newValue - 1
             }
@@ -29,6 +32,8 @@ class VideoCodec : Codec(MIME) {
          * Specifies the height resolution for a video output.
          */
         var height: Int by Delegates.observable(DEFAULT_HEIGHT) { _, oldValue, newValue ->
+            Log.d(TAG, "VideoCodec: set new setting - height oldValue = $oldValue - newValue = $newValue")
+
             if (oldValue != newValue) {
                 codec?.height = if (newValue % 2 == 0) newValue else newValue - 1
             }

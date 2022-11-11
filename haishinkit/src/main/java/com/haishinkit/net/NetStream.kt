@@ -23,6 +23,7 @@ abstract class NetStream {
      * Specifies the video codec settings.
      */
     val videoSetting: VideoCodec.Setting by lazy {
+        Log.d(TAG, "abstract class NetStream: setVideoSetting")
         VideoCodec.Setting(videoCodec)
     }
 
