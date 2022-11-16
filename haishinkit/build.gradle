@@ -1,4 +1,3 @@
-apply plugin: 'maven-publish'
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'org.jetbrains.dokka'
@@ -63,7 +62,7 @@ afterEvaluate {
                 url = uri("https://maven.pkg.github.com/pf2707/HaishinKit.kt")
                 credentials {
                     username = "pf2707"
-                    password = "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"
+                    password = "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"
                 }
             }
         }

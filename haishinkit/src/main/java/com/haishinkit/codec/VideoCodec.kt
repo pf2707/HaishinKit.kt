@@ -23,9 +23,12 @@ class VideoCodec : Codec(MIME) {
         var width: Int by Delegates.observable(DEFAULT_WIDTH) { _, oldValue, newValue ->
             Log.d(TAG, "VideoCodec: set new setting - width oldValue = $oldValue - newValue = $newValue")
 
-            if (oldValue != newValue) {
-                codec?.width = if (newValue % 2 == 0) newValue else newValue - 1
-            }
+            //scofieldtran - change default video setting
+            codec?.width = 720
+
+//            if (oldValue != newValue) {
+//                codec?.width = if (newValue % 2 == 0) newValue else newValue - 1
+//            }
         }
 
         /**
@@ -34,18 +37,25 @@ class VideoCodec : Codec(MIME) {
         var height: Int by Delegates.observable(DEFAULT_HEIGHT) { _, oldValue, newValue ->
             Log.d(TAG, "VideoCodec: set new setting - height oldValue = $oldValue - newValue = $newValue")
 
-            if (oldValue != newValue) {
-                codec?.height = if (newValue % 2 == 0) newValue else newValue - 1
-            }
+            //scofieldtran - change default video setting
+            codec?.height = 1280;
+
+//            if (oldValue != newValue) {
+//                codec?.height = if (newValue % 2 == 0) newValue else newValue - 1
+//            }
         }
 
         /**
          * Specifies the bitrate for a video output.
          */
         var bitRate: Int by Delegates.observable(DEFAULT_BIT_RATE) { _, oldValue, newValue ->
-            if (oldValue != newValue) {
-                codec?.bitRate = newValue
-            }
+
+            //scofieldtran - change default video setting
+            codec?.bitRate = 8 * 512 * 1000;
+
+//            if (oldValue != newValue) {
+//                codec?.bitRate = newValue
+//            }
         }
 
         /**
@@ -184,11 +194,12 @@ class VideoCodec : Codec(MIME) {
     companion object {
         const val MIME = MIME_VIDEO_AVC
 
-        const val DEFAULT_BIT_RATE = 500 * 1000
+        //scofieldtran - change default video setting
+        const val DEFAULT_BIT_RATE = 8 * 500 * 1000
         const val DEFAULT_FRAME_RATE = 30
         const val DEFAULT_I_FRAME_INTERVAL = 2
-        const val DEFAULT_WIDTH = 640
-        const val DEFAULT_HEIGHT = 360
+        const val DEFAULT_WIDTH = 720
+        const val DEFAULT_HEIGHT = 1280
         const val DEFAULT_PROFILE = MediaCodecInfo.CodecProfileLevel.AVCProfileBaseline
         const val DEFAULT_LEVEL = MediaCodecInfo.CodecProfileLevel.AVCLevel31
         const val DEFAULT_COLOR_FORMAT = MediaCodecInfo.CodecCapabilities.COLOR_FormatSurface
