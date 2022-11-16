@@ -2,6 +2,7 @@ apply plugin: 'maven-publish'
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'org.jetbrains.dokka'
+apply plugin: 'maven-publish'
 
 task sourceJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs
@@ -37,19 +38,6 @@ android {
     }
 }
 
-afterEvaluate {
-    publishing {
-        publications {
-            release(MavenPublication) {
-                from components.release
-                groupId = "$library_group"
-                artifactId = "haishinkit"
-                version = "$version_name"
-            }
-        }
-    }
-}
-
 dependencies {
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
@@ -67,17 +55,38 @@ repositories {
     google()
 }
 
-publishing {
-    repositories {
-        maven {
-            name = "HaishinKit.kt"
-            url = uri("https://maven.pkg.github.com/shogo4405/HaishinKit.kt")
-            credentials {
-                username = project.findProperty("gpr.user") ?: System.getenv("GITHUB_USER")
-                password = project.findProperty("gpr.key") ?: System.getenv("GITHUB_API_TOKEN")
+afterEvaluate {
+    publishing {
+        repositories {
+            maven {
+                name = "GitHubPackages"
+                url = uri("https://maven.pkg.github.com/pf2707/HaishinKit.kt")
+                credentials {
+                    username = "pf2707"
+                    password = "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"
+                }
+            }
+        }
+        publications {
+            bar(MavenPublication) {
+                from(components.getByName("release"))
+                groupId = "haishinkit.scofieldtran"
+                artifactId = "mobile"
+                version = "1.0.0"
             }
         }
     }
 }
 
+task deleteJar(type: Delete) {
+    delete 'libs/jars/logmanagementlib.jar'
+}
 
+task createJar(type: Copy) {
+    from('build/intermediates/bundles/release/')
+    into('libs/jars/')
+    include('classes.jar')
+    rename('classes.jar', 'logmanagementlib.jar')
+}
+
+createJar.dependsOn(deleteJar, build)
